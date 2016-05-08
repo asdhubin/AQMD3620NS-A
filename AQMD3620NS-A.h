@@ -530,8 +530,11 @@ int set_speed(short sp=0){
 }
 
 /**int state_now()
-*
-*
+*读取当前电机运作状态
+*其实现在有用的数据只有
+*实时PWM
+*实时电流
+*换向频率（间接得到电机转速，但是你要知道电机的特性，转一圈换向几次）
 */
 int state_now(){
     unsigned char order[]={ADR,0x03,0x00,0x10,0x00,0x0B,0x05,0xFB};
