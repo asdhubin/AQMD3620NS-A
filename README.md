@@ -6,6 +6,7 @@ AQMD3620NS-A直流电机驱动器驱动程序，用于电机调速以及状态�
 */
 
 /**\brief 系统参数设定*/
+
 /**int set_stopbit(int stop=2)
 *设定停止位为2bit，没有考虑校验位，一定要校验位的话请修改源码"serialport.h"
 */
