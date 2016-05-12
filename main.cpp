@@ -8,13 +8,14 @@
 #include <math.h>
 #include <ctime>
 
-#include "AQMD3620NS-A"
+#include "AQMD3620NS-A.h"
 #include "serialport.h"
 
 #define portname  "/dev/ttyUSB0"
 int main()
 {
-    int fd = open (portname, O_RDWR | O_NOCTTY | O_SYNC);
+    int fd = open (portname, O_RDWR | O_NOCTTY | O_NDELAY);
+        std::cout<<"hello01"<<std::endl;
     if (fd < 0)
     {
         printf("error opening the device\n");
@@ -44,8 +45,16 @@ int main()
     // implied else, set_blocking successful
 
 
-
+    //main process
     char receivebuffer [20];
 
+    set_speed(fd,200);
 
+    state_now(fd);
+
+    usleep(1000000);
+    set_speed(fd,0);
+    //close the serial port
+    tcsetattr (fd, TCSANOW, &oldtty);
+    return 0;
 }

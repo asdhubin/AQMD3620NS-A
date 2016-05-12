@@ -12,14 +12,14 @@
 
 
 static struct termios oldtty;
-int set_interface_attribs (int fd, int speed, int parity,int stop=1);
+int set_interface_attribs (int fd, int speed, int parity,int stop);
 int set_blocking (int fd, int should_block);
 /**int set_interface_attribs (int fd, int speed, int parity,int stop=1)
 *与串行端口建立连接
 *注意：默认每字节1bit起始位+8bit数据位+1bit停止位，无校验位
 *在项目中使用的直流电机驱动器485通讯装置中，有2bit停止位，没有校验位
 */
-int set_interface_attribs (int fd, int speed, int parity,int stop=1)
+int set_interface_attribs (int fd, int speed, int parity,int stop)
 {
         struct termios tty;
         memset (&tty, 0, sizeof tty);
@@ -52,8 +52,8 @@ int set_interface_attribs (int fd, int speed, int parity,int stop=1)
                                     // enable reading
         tty.c_cflag &= ~(PARENB | PARODD);      // shut off parity
         tty.c_cflag |= parity;
-        if(stop=1){tty.c_cflag &= ~CSTOPB;}
-        else if(stop=2){tty.c_cflag |= CSTOPB;}
+        if(stop==1){tty.c_cflag &= ~CSTOPB;}
+        else if(stop==2){tty.c_cflag |= CSTOPB;}
         tty.c_cflag &= ~CRTSCTS;
 
         if (tcsetattr (fd, TCSANOW, &tty) != 0)
